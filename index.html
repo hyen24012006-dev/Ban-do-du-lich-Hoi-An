@@ -1,0 +1,170 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0c1830">
+<meta name="description" content="Bản đồ thực hành 22 cơ sở lưu trú tại Hội An, Đà Nẵng, phân theo 4 nhóm khách sạn và homestay. Dữ liệu từ bảng khảo sát, cần kiểm chứng trước khi công bố.">
+<title>Bản đồ số 22 cơ sở lưu trú Hội An</title>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzxSklAXR0gJ70ZDfrD3XjATWc=" crossorigin="">
+<style>
+:root{font-family:system-ui,-apple-system,"Segoe UI",Arial,sans-serif;--base:#0c1627;--panel:#13243a;--panel2:#182d47;--edge:#31445d;--ink:#f1f6fc;--muted:#a9bfd3;--mint:#48d9c8;--blue:#a9c8fb;--orange:#ffc881;--radius:16px}
+*{box-sizing:border-box}html,body{width:100%;height:100%;margin:0;background:var(--base);color:var(--ink)}button,input,select{font:inherit}button{cursor:pointer}button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid #87e9d8;outline-offset:3px}
+a{color:inherit}.app{height:100vh;height:100dvh;display:grid;grid-template-rows:76px minmax(0,1fr)}.topbar{display:flex;gap:18px;align-items:center;justify-content:space-between;padding:10px 23px;background:linear-gradient(105deg,#0a1729,#142d4b);border-bottom:1px solid #304863;z-index:1000}
+.brand{display:flex;gap:12px;align-items:center;min-width:0}.logo{width:46px;height:46px;border-radius:13px;background:linear-gradient(145deg,#28c3ad,#4a88d8);display:grid;place-items:center;font-size:25px;flex:none;box-shadow:0 7px 25px #3de1c423}.brand h1{font-size:18px;font-weight:800;line-height:1.3;margin:0}.brand p{font-size:11px;color:#b0c4dc;margin:4px 0 0}.top-meta{text-align:right;flex:none}.top-meta strong{display:block;color:#eaf9fc;font-size:12px}.top-meta span{display:block;color:var(--mint);font-size:11px;margin-top:3px}
+.body{display:grid;grid-template-columns:374px minmax(0,1fr);position:relative;min-height:0}.sidebar{display:flex;flex-direction:column;min-height:0;background:linear-gradient(180deg,#14263e,#0d1a2d);z-index:500;border-right:1px solid var(--edge)}.sidehead{padding:20px 17px 14px;border-bottom:1px solid var(--edge)}.eyebrow{color:var(--mint);font-size:10px;letter-spacing:1.4px;font-weight:800;text-transform:uppercase}.sidehead h2{font-size:20px;line-height:1.34;margin:8px 0}.sidehead p{color:var(--muted);font-size:12px;line-height:1.5;margin:0 0 13px}.searchbox{display:flex;align-items:center;gap:9px;padding:10px 11px;border:1px solid #405772;border-radius:11px;background:#1a314d;color:#a7c2dc}.searchbox input{border:0;outline:0;min-width:0;flex:1;background:none;color:white;font-size:13px}.searchbox input::placeholder{color:#97aabe}
+.chips{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-top:12px}.chip{color:#d3e1ee;background:#1a3150;border:1px solid #354d69;min-height:40px;border-radius:10px;display:flex;align-items:center;gap:7px;text-align:left;padding:8px;font-size:11px;font-weight:650}.chip:first-child{grid-column:span 2}.chip:hover{background:#234360}.chip.active{color:#f0fffd;background:#18505a;border-color:#63dcce}.dot{width:8px;height:8px;border-radius:50%;flex:none;background:var(--c,#4bd4c4)}
+.list-head{display:flex;align-items:center;justify-content:space-between;gap:6px;padding:12px 16px 8px;color:var(--muted);font-size:11px}.list-head b{font-weight:750;color:#bdd5ea}.list{min-height:0;overflow:auto;padding:0 9px 13px;scrollbar-width:thin;scrollbar-color:#4b6984 transparent}.item{display:flex;width:100%;align-items:flex-start;text-align:left;gap:10px;padding:12px 10px;margin:0 0 7px;background:#192d47;border:1px solid #2e4663;border-radius:13px;color:var(--ink);transition:background .15s}.item:hover{background:#24405e}.item.selected{border-color:#55e1cb;background:#194555}.item-icon{width:38px;height:38px;display:grid;place-items:center;flex:none;border:2px solid var(--color);background:#0e1b30;border-radius:12px;font-size:19px}.item-main{min-width:0;flex:1}.item-code{color:#9dbbd0;font-size:10px;letter-spacing:.3px;font-weight:700}.item-title{font-size:13px;line-height:1.35;font-weight:750;margin:3px 0 5px}.item-sub{font-size:11px;line-height:1.45;color:#a6bcce;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}.item-review{display:inline-flex;align-items:center;color:#ffe0a5;font-size:10px;margin-top:5px}.sidefoot{flex:none;color:#93a9bd;padding:11px 16px;font-size:10px;line-height:1.5;border-top:1px solid #2c445f}
+.mapshell{min-height:0;min-width:0;position:relative;background:#12293a}#map{position:absolute;inset:0;background:#162e43;z-index:1}#map.dark .leaflet-tile-pane{filter:invert(.94) hue-rotate(188deg) saturate(.6) brightness(.74) contrast(1.07)}.leaflet-container{font-family:inherit}.leaflet-control-attribution{font-size:10px!important;background:#fffc!important}
+.maptools{position:absolute;left:18px;right:18px;top:16px;display:flex;justify-content:space-between;gap:12px;align-items:flex-start;z-index:650;pointer-events:none}.maptools>*{pointer-events:auto}.filter{display:flex;align-items:center;gap:10px;padding:9px 12px;background:#0d2035ef;border:1px solid #607a9480;box-shadow:0 9px 22px #0005;border-radius:12px;backdrop-filter:blur(10px)}.filter label{white-space:nowrap;font-size:11px;color:#a6c3d8;font-weight:700}.filter select{border:0;outline:none;background:none;min-width:190px;max-width:300px;font-size:12px;font-weight:730;color:white;cursor:pointer}.filter option{color:#17263a;background:white}.actions{display:flex;gap:7px}.round{display:grid;place-items:center;width:40px;height:40px;border-radius:11px;color:#e8f8fc;background:#10263cef;border:1px solid #6f8ba58c;box-shadow:0 8px 21px #0005;font-size:18px}.round:hover{background:#23536d}
+.banner{position:absolute;left:18px;bottom:30px;z-index:600;max-width:440px;background:#10263ae8;border:1px solid #6f8ba566;border-radius:13px;padding:12px 14px;pointer-events:none;box-shadow:0 10px 30px #0004}.banner strong{font-size:13px}.banner p{font-size:11px;color:#b9d0df;margin:5px 0 0;line-height:1.5}.mobile-only{display:none}
+.pin-wrap{background:transparent;border:0}.pin{position:relative;display:grid;place-items:center;width:43px;height:43px;border-radius:50%;background:#102034;border:2.5px solid var(--c);font-size:20px;box-shadow:0 0 0 4px #07111f66,0 7px 15px #0009;transition:transform .12s}.pin:hover{transform:scale(1.14)}.pin:after{content:"";background:var(--c);position:absolute;width:9px;height:9px;bottom:-5px;transform:rotate(45deg);z-index:-1}
+.leaflet-popup-content-wrapper{background:#102036;color:#e5f2fd;border:1px solid #455d7c;border-radius:16px;box-shadow:0 17px 44px #000b}.leaflet-popup-content{margin:0!important;width:340px!important;max-width:min(340px,calc(100vw - 80px))!important}.leaflet-popup-tip{background:#102036}.leaflet-container a.leaflet-popup-close-button{color:#cbddea!important;top:10px;right:8px}.popup{padding:17px 16px 15px;max-height:min(73vh,650px);overflow-y:auto;scrollbar-width:thin;scrollbar-color:#46627e transparent}.popup-code{font-size:10px;font-weight:800;letter-spacing:.55px;color:#63dccb;text-transform:uppercase;margin-bottom:6px;max-width:295px}.popup h3{font-size:17px;line-height:1.3;margin:0 20px 8px 0}.popup-address{color:#b4cade;font-size:11px;line-height:1.55;margin:0 0 10px}.popup-alert{background:#4e3726;color:#ffe2b2;border:1px solid #99703b;border-radius:9px;padding:9px;font-size:11px;line-height:1.55;margin:9px 0}.photo-title{display:flex;align-items:center;justify-content:space-between;gap:6px;font-size:12px;font-weight:770;margin:13px 0 8px}.photo-state{font-size:10px;font-weight:650;color:#abc0d2}.photo-grid{display:grid;grid-template-columns:1fr 1fr;gap:7px}.photo-tile{border:1px solid #425977;border-radius:10px;overflow:hidden;position:relative;background:#1a314a;height:106px;display:grid;place-items:center}.photo-tile button{height:100%;width:100%;padding:0;border:0;background:none;display:block;color:inherit}.photo-tile img{display:block;width:100%;height:100%;object-fit:cover}.photo-tile .photofallback{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:7px;padding:9px;color:#b4c9d7;text-align:center;font-size:10px;line-height:1.3}.photo-tile .photofallback span{font-size:20px}.photo-tile.loaded .photofallback{display:none}.photo-tile:not(.loaded) img{visibility:hidden}.photo-tile .photo-label{position:absolute;bottom:0;left:0;right:0;padding:5px 7px;background:linear-gradient(transparent,#000d);font-size:10px;font-weight:650;color:#fff;display:none}.photo-tile.loaded .photo-label{display:block}.photo-tile button:disabled{cursor:default}.photo-tip{font-size:10px;color:#9fb6cb;margin:7px 0 2px;line-height:1.5}
+.p-details{margin-top:12px;border-top:1px solid #314a63;padding-top:8px}.p-details dt{color:#80e3d4;font-size:10px;font-weight:800;margin:8px 0 3px}.p-details dd{font-size:11px;color:#cce0ed;line-height:1.6;margin:0;white-space:pre-line}.p-details .long{max-height:125px;overflow-y:auto}.smallsource{font-size:10px;color:#9db6cd;line-height:1.55;margin:11px 0 7px}.source-links{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-top:9px}.source-links a{display:block;text-align:center;text-decoration:none;border-radius:9px;padding:10px 7px;font-size:11px;font-weight:800;line-height:1.4;background:#28465f;color:#e5f3fb}.source-links a.primary{background:#43d8c4;color:#093436}.source-links a:hover{filter:brightness(1.12)}.p-price{font-size:10px;color:#95b1c5;line-height:1.55;margin-top:8px}
+.empty{padding:25px 10px;color:#aac1d3;text-align:center;font-size:12px}
+.overlay{position:fixed;inset:0;z-index:1900;background:#05101acc;display:grid;place-items:center;padding:20px;backdrop-filter:blur(7px)}.overlay[hidden]{display:none}.modal{position:relative;width:min(740px,95vw);max-height:90vh;overflow:auto;border:1px solid #476884;border-radius:18px;background:#13263b;box-shadow:0 24px 55px #000a;padding:20px}.close{position:absolute;top:10px;right:12px;display:grid;place-items:center;width:34px;height:34px;background:#284058;border:1px solid #54708b;border-radius:9px;color:white;font-size:20px}.modal h2{font-size:18px;margin:0 40px 8px 0}.modal p{font-size:12px;line-height:1.6;color:#b8cdde}.audit-table{border-collapse:collapse;width:100%;font-size:11px;margin-top:12px}.audit-table th,.audit-table td{padding:8px;text-align:left;border-bottom:1px solid #344c64;vertical-align:top}.audit-table th{color:#83e8d7}.audit-table .warn{color:#ffcb82}.audit-table .good{color:#85ead8}.audit-top{padding:11px;background:#1b3851;border:1px solid #395c76;border-radius:10px}.audit-top strong{color:#edfcff}.audit-links{color:#91c1e5;text-decoration:underline}.lightbox{width:min(1000px,96vw);overflow:hidden}.lightbox .photo-full{display:block;max-width:100%;max-height:70vh;width:auto;margin:15px auto 0;border-radius:8px;object-fit:contain}.lightbox-meta{font-size:12px;color:#c4dceb;text-align:center;padding:10px 20px 0;line-height:1.5}.lightbox-nav{display:flex;justify-content:space-between;margin-top:11px;gap:10px}.lightbox-nav button{border:1px solid #476783;background:#294762;color:white;padding:9px 13px;border-radius:9px;font-weight:700}
+@media(max-width:900px){.body{grid-template-columns:330px minmax(0,1fr)}.filter label{display:none}.filter select{min-width:170px}}
+@media(max-width:750px){.app{grid-template-rows:69px minmax(0,1fr)}.topbar{padding:9px 12px}.brand h1{font-size:14px}.brand p{font-size:10px}.logo{width:39px;height:39px;font-size:22px}.top-meta{display:none}.body{display:block}.mapshell{position:absolute;inset:0}.sidebar{position:absolute;z-index:1100;left:12px;right:12px;bottom:12px;max-height:57%;border:1px solid #4a6683;border-radius:16px;box-shadow:0 14px 38px #000b;transform:translateY(calc(100% + 18px));transition:transform .2s}.sidebar.open{transform:translateY(0)}.sidehead{padding:12px}.sidehead h2{font-size:16px;margin:5px 0}.sidehead p{display:none}.sidefoot{display:none}.maptools{top:10px;left:10px;right:10px}.filter{flex:1;min-width:0;padding:10px}.filter select{width:100%;max-width:none;min-width:0}.round{width:37px;height:37px;font-size:17px}.actions #fullButton{display:none}.mobile-only{display:grid}.banner{left:10px;right:10px;bottom:29px;max-width:93%;padding:10px}.banner p{font-size:10px}.leaflet-popup-content{max-width:min(340px,calc(100vw - 75px))!important}}
+@media(max-width:390px){.brand h1{font-size:12px}.brand p{font-size:9px}.round{width:35px;height:35px}.filter{max-width:calc(100vw - 190px)}.source-links a{font-size:10px}}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{transition:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+<div class="app">
+ <header class="topbar">
+  <div class="brand"><div class="logo" aria-hidden="true">🏨</div><div><h1>Bản đồ số cơ sở lưu trú Hội An</h1><p>22 cơ sở · 4 nhóm · Bài thực hành bản đồ du lịch</p></div></div>
+  <div class="top-meta"><strong>Dữ liệu khảo sát trong Excel</strong><span>Khách sạn, resort và homestay</span></div>
+ </header>
+ <main class="body">
+  <aside id="sidebar" class="sidebar" aria-label="Danh sách cơ sở lưu trú">
+   <div class="sidehead"><span class="eyebrow">ACCOMMODATION DIGITAL MAP</span><h2>Khám phá cơ sở lưu trú</h2><p>Chọn tên hoặc ghim để xem ghi chú khảo sát, ảnh, vị trí và đường dẫn Google Maps.</p>
+    <label class="searchbox"><span aria-hidden="true">⌕</span><input id="search" type="search" placeholder="Tìm khách sạn, khu vực, mã điểm..." aria-label="Tìm cơ sở lưu trú"></label>
+    <div id="groupChips" class="chips"></div>
+   </div>
+   <div class="list-head"><span id="resultText">Đang tải dữ liệu...</span><b id="groupCount">22 địa điểm</b></div>
+   <div class="list" id="placesList" aria-live="polite"></div>
+   <div class="sidefoot">Excel mới chỉ ghi tên ảnh; chưa có tệp ảnh minh họa. Mỗi cơ sở cần ít nhất 2 ảnh được phép sử dụng, tối đa 3 ảnh. Hạng sao và vị trí cần xác minh.</div>
+  </aside>
+  <section class="mapshell" aria-label="Bản đồ 22 cơ sở lưu trú Hội An">
+   <div id="map" class="dark"></div>
+   <div class="maptools">
+    <div class="filter"><label for="groupFilter">Lọc theo loại hình</label><select id="groupFilter" aria-label="Lọc theo loại hình"></select></div>
+    <div class="actions">
+     <button id="resetButton" class="round" title="Hiện tất cả" aria-label="Hiện tất cả">⌂</button>
+     <button id="auditButton" class="round" title="Kiểm tra số ảnh" aria-label="Kiểm tra số ảnh">▧</button>
+     <button id="themeButton" class="round" title="Chuyển nền sáng/tối" aria-label="Chuyển nền sáng/tối">☀</button>
+     <button id="fullButton" class="round" title="Toàn màn hình" aria-label="Toàn màn hình">⛶</button>
+     <button id="mobileListButton" class="round mobile-only" title="Mở danh sách" aria-label="Mở danh sách">☰</button>
+    </div>
+   </div>
+   <div class="banner"><strong><span id="mapCount">22</span> cơ sở đang hiển thị</strong><p>22 địa điểm từ Excel của nhóm tại Hội An. Tọa độ, hạng sao, ảnh và các ghi chú khảo sát cần được xác minh trước khi công bố.</p></div>
+  </section>
+ </main>
+</div>
+<div id="auditOverlay" class="overlay" hidden><div class="modal" role="dialog" aria-modal="true" aria-labelledby="auditTitle"><button class="close" id="closeAudit" aria-label="Đóng">×</button><h2 id="auditTitle">Kiểm tra hình ảnh 22 cơ sở</h2><p id="auditLead">Đang kiểm tra ảnh theo đường dẫn trong du_lieu.js...</p><div id="auditOutput"></div></div></div>
+<div id="photoOverlay" class="overlay" hidden><div class="modal lightbox" role="dialog" aria-modal="true" aria-labelledby="photoTitle"><button class="close" id="closePhoto" aria-label="Đóng ảnh">×</button><h2 id="photoTitle">Ảnh cơ sở lưu trú</h2><img id="bigPhoto" class="photo-full" alt="Ảnh cơ sở lưu trú"><div id="photoCaption" class="lightbox-meta"></div><div class="lightbox-nav"><button id="prevPhoto">← Ảnh trước</button><button id="nextPhoto">Ảnh sau →</button></div></div></div>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+<script src="du_lieu.js"></script>
+<script>
+'use strict';
+const GROUPS={
+ '5S':{label:'Khách sạn/Resort 5 sao',short:'5 sao',color:'#c5a0f9',icon:'🏝️'},
+ '4S':{label:'Khách sạn 4 sao',short:'4 sao',color:'#f8bc72',icon:'🏨'},
+ '3S':{label:'Khách sạn 3 sao',short:'3 sao',color:'#5bdcaa',icon:'🛏️'},
+ 'HS':{label:'Homestay',short:'Homestay',color:'#69adfa',icon:'🏡'}
+};
+const POINTS=Array.isArray(window.LODGING_PLACES)?window.LODGING_PLACES:[];
+const $=(id)=>document.getElementById(id);
+const normalize=(text)=>String(text??'').toLocaleLowerCase('vi').normalize('NFD').replace(/[\u0300-\u036f]/g,'').replaceAll('đ','d');
+const safe=(text)=>String(text??'').replace(/[&<>"']/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
+const safeSrc=(url)=>{const u=String(url||'').trim();return (/^anh\/[A-Za-z0-9_-]+\.(?:jpg|jpeg|png|webp)$/i.test(u)||/^https:\/\/[^\s]+$/i.test(u))?u:'';};
+const e=(tag,cls,txt)=>{let el=document.createElement(tag);if(cls)el.className=cls;if(txt!==undefined&&txt!==null)el.textContent=txt;return el;};
+let selectedGroup='all',searchTerm='',selectedId=null,dark=true,lightboxItems=[],lightboxIndex=0;
+let map,markers=new Map();
+
+function linkFor(p){let input=String(p.maps||'').replace(/\u2060/g,'').trim();return /^https:\/\/[^\s]+$/i.test(input)?input:'https://www.google.com/maps/search/?api=1&query='+encodeURIComponent(p.name+' '+p.address);}
+function directionFor(p){if(p.reviewNote)return 'https://www.google.com/maps/search/?api=1&query='+encodeURIComponent(p.name+' '+p.address);return 'https://www.google.com/maps/dir/?api=1&destination='+encodeURIComponent(p.lat+','+p.lng);}
+function addInfo(target,title,content,long=false){if(!String(content||'').trim())return;let dt=e('dt','',title),dd=e('dd',long?'long':'',content);target.append(dt,dd);}
+function renderPopup(p){
+ const v=GROUPS[p.group]||GROUPS.HS;
+ const wrap=e('div','popup');wrap.append(e('div','popup-code',p.id+' · '+v.label));
+ wrap.append(e('h3','',p.name));wrap.append(e('p','popup-address','📍 '+p.address));
+ wrap.append(e('p','popup-address','Loại hình: '+p.type+' · Hạng sao ghi trong Excel: '+p.stars+' (chưa xác minh độc lập)'));
+ if(p.reviewNote)wrap.append(e('div','popup-alert','⚠ Cần kiểm tra: '+p.reviewNote));
+ const title=e('div','photo-title');title.append(e('span','','Hình ảnh minh họa'));const status=e('span','photo-state','Đang kiểm tra ảnh...');title.append(status);wrap.append(title);
+ const gallery=e('div','photo-grid');wrap.append(gallery);
+ const listed=Array.isArray(p.images)?p.images.slice(0,3):[];
+ let done=0,found=0;const loadeds=[];
+ const report=()=>{if(done===listed.length){status.textContent=found+'/'+Math.max(2,listed.length)+' ảnh có sẵn'+(found<2?' · thiếu ảnh':'');status.style.color=found>=2?'#93ecd8':'#ffc986';}};
+ if(!listed.length){status.textContent='0/2 ảnh · chưa có dữ liệu';}
+ for(let i=0;i<Math.max(2,listed.length);i++){
+  const item=listed[i]||{src:'',label:'Ảnh '+(i+1),credit:''};
+  const tile=e('div','photo-tile');const btn=e('button');btn.type='button';btn.disabled=true;
+  const fallback=e('div','photofallback');fallback.append(e('span','','▧'),e('div','',`Chưa có ảnh ${i+1}`));
+  tile.append(btn,fallback,e('div','photo-label',item.label||('Ảnh '+(i+1))));gallery.append(tile);
+  const url=safeSrc(item.src);
+  if(!url){done++;report();continue;}
+  const im=e('img');im.alt=(item.label||('Ảnh '+(i+1)))+' của '+p.name;im.loading='lazy';btn.append(im);
+  im.onload=()=>{found++;done++;tile.classList.add('loaded');btn.disabled=false;const k={src:url,label:item.label||('Ảnh '+(i+1)),credit:item.credit||'',hotel:p.name};loadeds.push(k);btn.onclick=()=>openPhoto(loadeds,k);report();};
+  im.onerror=()=>{done++;im.remove();report();};im.src=url;
+ }
+ wrap.append(e('p','photo-tip','Ảnh chỉ hiện khi mở được tệp. Tên ảnh trong Excel chưa phải ảnh thật; nhóm cần bổ sung tối thiểu 2 ảnh/cơ sở (ảnh thứ ba tùy chọn).'));
+ const details=e('dl','p-details');
+ addInfo(details,'Ghi chú khảo sát',p.description,true);
+ addInfo(details,'Điểm nổi bật ghi nhận',p.highlight);
+ addInfo(details,'Loại phòng',p.rooms);
+ addInfo(details,'Tiện ích theo bảng khảo sát',p.amenities);
+ addInfo(details,'Hồ bơi / spa / gym',p.wellness);
+ addInfo(details,'Hội nghị / sự kiện',p.events);
+ addInfo(details,'Đi lại / chỗ đỗ xe',p.access);
+ addInfo(details,'Thực hành xanh (ghi trong Excel)',p.green);
+ addInfo(details,'Đối tượng khách',p.guests);
+ addInfo(details,'Ăn uống / F&B',p.food);
+ addInfo(details,'Điểm tham quan lân cận',p.nearby);
+ addInfo(details,'Lưu ý do nhóm ghi nhận',p.limitations,true);
+ wrap.append(details);
+ if(p.referencePrice){wrap.append(e('div','p-price','Giá ghi trong bảng Excel (chưa rõ ngày kiểm tra, chỉ tham khảo): '+p.referencePrice+(p.referencePriceSource?' · Nguồn nhóm ghi: '+p.referencePriceSource:'')));}
+ wrap.append(e('p','smallsource','Phân hạng được lấy từ ô Excel, chưa thay thế giấy tờ công nhận hạng sao. Nội dung và tọa độ cần đối chiếu với nguồn chính thức và thực địa.'));
+ const actions=e('div','source-links');let source=e('a','','Xem thông tin / ảnh nguồn ↗');source.href=linkFor(p);source.target='_blank';source.rel='noopener noreferrer';actions.append(source);
+ if(p.website){const official=e('a','','Website cơ sở ↗');official.href=p.website;official.target='_blank';official.rel='noopener noreferrer';actions.append(official);}
+ let directions=e('a','primary',p.reviewNote?'Kiểm tra vị trí ↗':'Chỉ đường ↗');directions.href=directionFor(p);directions.target='_blank';directions.rel='noopener noreferrer';actions.append(directions);wrap.append(actions);
+ return wrap;
+}
+function openPhoto(loaded,sel){lightboxItems=loaded.slice();lightboxIndex=Math.max(0,lightboxItems.indexOf(sel));updatePhoto();$('photoOverlay').hidden=false;document.body.style.overflow='hidden';$('closePhoto').focus();}
+function updatePhoto(){if(!lightboxItems.length)return;const x=lightboxItems[lightboxIndex];$('bigPhoto').src=x.src;$('bigPhoto').alt=x.label+' – '+x.hotel;$('photoTitle').textContent=x.hotel;$('photoCaption').textContent=x.label+(x.credit?' · Nguồn: '+x.credit:'')+' · '+(lightboxIndex+1)+'/'+lightboxItems.length;$('prevPhoto').disabled=lightboxItems.length<2;$('nextPhoto').disabled=lightboxItems.length<2;}
+function changePhoto(step){if(!lightboxItems.length)return;lightboxIndex=(lightboxIndex+step+lightboxItems.length)%lightboxItems.length;updatePhoto();}
+function closeOverlay(which){$(which).hidden=true;if($('auditOverlay').hidden&&$('photoOverlay').hidden)document.body.style.overflow='';}
+function activePoints(){return POINTS.filter(p=>(selectedGroup==='all'||p.group===selectedGroup)&&normalize([p.id,p.name,p.address,p.description,p.highlight,p.category,p.amenities].join(' ')).includes(normalize(searchTerm)));}
+function drawList(){const ps=activePoints();$('resultText').textContent=ps.length+' cơ sở phù hợp';$('mapCount').textContent=ps.length;$('groupCount').textContent=POINTS.length+' địa điểm';const list=$('placesList');list.replaceChildren();if(!ps.length){list.append(e('div','empty','Không tìm thấy cơ sở phù hợp.'));return;}
+ for(const p of ps){const group=GROUPS[p.group]||GROUPS.HS;const button=e('button','item'+(selectedId===p.id?' selected':''));button.type='button';button.style.setProperty('--color',group.color);const ico=e('span','item-icon',group.icon),main=e('span','item-main');main.append(e('div','item-code',p.id+' · '+group.short),e('div','item-title',p.name),e('div','item-sub',p.highlight||p.address));if(p.reviewNote)main.append(e('span','item-review','⚠ Kiểm tra dữ liệu'));button.append(ico,main);button.onclick=()=>focusPoint(p.id);list.append(button);}
+}
+function updateMap(zoom=true){const ps=activePoints();const allow=new Set(ps.map(p=>p.id));for(const p of POINTS){const marker=markers.get(p.id);if(!marker)continue;if(allow.has(p.id)){if(!map.hasLayer(marker))marker.addTo(map);}else if(map.hasLayer(marker))map.removeLayer(marker);}if(selectedId&&!allow.has(selectedId)){selectedId=null;map.closePopup();}drawList();const visible=ps.filter(p=>markers.has(p.id));if(zoom&&visible.length){map.fitBounds(L.latLngBounds(visible.map(p=>[p.lat,p.lng])),{padding:[55,55],maxZoom:14,animate:false});}}
+function focusPoint(id){const p=POINTS.find(x=>x.id===id);if(!p||!markers.has(id))return;selectedId=id;map.flyTo([p.lat,p.lng],Math.max(13,map.getZoom()),{duration:.45});markers.get(id).openPopup();drawList();$('sidebar').classList.remove('open');setTimeout(()=>map.invalidateSize(),220);}
+function setGroup(group){selectedGroup=group;$('groupFilter').value=group;document.querySelectorAll('.chip').forEach(x=>x.classList.toggle('active',x.dataset.key===group));updateMap();}
+function buildFilters(){const opts=[['all','Tất cả cơ sở'],...Object.keys(GROUPS).map(k=>[k,GROUPS[k].label])];for(const [key,name] of opts){const selectOpt=e('option','',name);selectOpt.value=key;$('groupFilter').append(selectOpt);const chip=e('button','chip'+(key==='all'?' active':''));chip.type='button';chip.dataset.key=key;chip.style.setProperty('--c',key==='all'?'#4bd4c4':GROUPS[key].color);chip.append(e('span','dot'),e('span','',name+' ('+(key==='all'?POINTS.length:POINTS.filter(p=>p.group===key).length)+')'));chip.onclick=()=>setGroup(key);$('groupChips').append(chip);}$('groupFilter').onchange=()=>setGroup($('groupFilter').value);}
+function loadImage(src){return new Promise(resolve=>{const url=safeSrc(src);if(!url){resolve(false);return;}const im=new Image();im.onload=()=>resolve(true);im.onerror=()=>resolve(false);im.src=url;});}
+async function auditImages(){ $('auditOverlay').hidden=false;$('auditLead').textContent='Đang kiểm tra các đường dẫn ảnh...';$('auditOutput').replaceChildren();$('closeAudit').focus();
+ const rows=await Promise.all(POINTS.map(async p=>{const a=Array.isArray(p.images)?p.images:[];const ok=await Promise.all(a.slice(0,3).map(x=>loadImage(x.src)));return {p,available:ok.filter(Boolean).length,total:a.length,missing:a.slice(0,3).filter((x,i)=>!ok[i]).map(x=>x.src)};}));
+ const complete=rows.filter(r=>r.available>=2&&r.total<=3).length;const count=rows.reduce((n,r)=>n+r.available,0);
+ $('auditLead').textContent=`${complete}/${POINTS.length} cơ sở có ít nhất 2 ảnh tải được · ${count} ảnh tải thành công. ${complete===POINTS.length?'Đạt số lượng ảnh tối thiểu.':'Cần bổ sung ảnh tại các cơ sở còn thiếu.'}`;
+ const top=e('div','audit-top');top.append(e('strong','',`Yêu cầu: 2 ảnh/cơ sở, ảnh thứ 3 tùy chọn · tổng tối thiểu ${POINTS.length*2} ảnh.`));top.append(e('p','','Tệp ảnh cần được đặt đúng trong thư mục anh/ nằm cùng cấp với index.html. Kiểm tra này không chứng minh quyền sử dụng hoặc tính xác thực của ảnh.'));$('auditOutput').append(top);
+ const table=e('table','audit-table'),head=e('thead'),thr=e('tr');for(const txt of ['Mã','Cơ sở','Ảnh tải được','Tệp còn thiếu'])thr.append(e('th','',txt));head.append(thr);table.append(head);const tbody=e('tbody');for(const r of rows){const tr=e('tr');tr.append(e('td','',r.p.id),e('td','',r.p.name));tr.append(e('td',r.available>=2?'good':'warn',r.available+'/2'+(r.total>3?' (vượt 3)':'')));tr.append(e('td','',r.missing.join(', ')||'—'));tbody.append(tr);}table.append(tbody);$('auditOutput').append(table);
+}
+function boot(){if(!window.L){$('placesList').append(e('div','empty','Không tải được thư viện bản đồ Leaflet. Vui lòng kiểm tra Internet.'));return;}map=L.map('map',{zoomControl:false,preferCanvas:true}).setView([15.88,108.334],12);L.control.zoom({position:'bottomright'}).addTo(map);L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:19,attribution:'&copy; <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener noreferrer">OpenStreetMap contributors</a>'}).addTo(map);
+ for(const p of POINTS){if(!Number.isFinite(p.lat)||!Number.isFinite(p.lng)||Math.abs(p.lat)>90||Math.abs(p.lng)>180)continue;const group=GROUPS[p.group]||GROUPS.HS;const ico=L.divIcon({className:'pin-wrap',html:'<div class="pin" style="--c:'+group.color+'">'+safe(group.icon)+'</div>',iconSize:[43,46],iconAnchor:[21,44],popupAnchor:[0,-30]});const marker=L.marker([p.lat,p.lng],{icon:ico,title:p.name});marker.bindPopup(()=>renderPopup(p),{maxWidth:350,autoPanPaddingTopLeft:[18,73]});marker.on('click',()=>{selectedId=p.id;drawList();});markers.set(p.id,marker);}
+ buildFilters();updateMap();map.on('click',()=>{selectedId=null;drawList();$('sidebar').classList.remove('open');});window.addEventListener('resize',()=>map.invalidateSize());
+}
+$('search').addEventListener('input',event=>{searchTerm=event.target.value;updateMap(false);});
+$('resetButton').onclick=()=>{searchTerm='';$('search').value='';setGroup('all');$('sidebar').classList.remove('open');};
+$('themeButton').onclick=()=>{dark=!dark;$('map').classList.toggle('dark',dark);$('themeButton').textContent=dark?'☀':'☾';};
+$('fullButton').onclick=()=>{if(!document.fullscreenElement){document.documentElement.requestFullscreen?.().catch(()=>{});}else{document.exitFullscreen?.().catch(()=>{});}};
+$('mobileListButton').onclick=()=>{$('sidebar').classList.toggle('open');};
+$('auditButton').onclick=auditImages;$('closeAudit').onclick=()=>closeOverlay('auditOverlay');$('closePhoto').onclick=()=>closeOverlay('photoOverlay');
+$('prevPhoto').onclick=()=>changePhoto(-1);$('nextPhoto').onclick=()=>changePhoto(1);
+$('auditOverlay').addEventListener('click',event=>{if(event.target===$('auditOverlay'))closeOverlay('auditOverlay');});
+$('photoOverlay').addEventListener('click',event=>{if(event.target===$('photoOverlay'))closeOverlay('photoOverlay');});
+window.addEventListener('keydown',event=>{if(event.key==='Escape'){closeOverlay('auditOverlay');closeOverlay('photoOverlay');}if(!$('photoOverlay').hidden){if(event.key==='ArrowLeft')changePhoto(-1);if(event.key==='ArrowRight')changePhoto(1);}});
+boot();
+</script>
+</body>
+</html>
